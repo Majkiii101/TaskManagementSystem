@@ -20,7 +20,7 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public Task getById(@PathVariable("id") Long id){
-        return taskRepository.getByID(id);
+        return taskRepository.getById(id);
     }
 
     @PostMapping("")
@@ -30,7 +30,7 @@ public class TaskController {
 
    @PutMapping("/{id}")
     public String updateTask(@PathVariable("id") Long id, @RequestBody Task updatedTask){
-        Task task = taskRepository.getByID(id);
+        Task task = taskRepository.getById(id);
         if (task != null){
             task.setTitle(updatedTask.getTitle());
             task.setDescription(updatedTask.getDescription());
@@ -46,7 +46,7 @@ public class TaskController {
 
    @PatchMapping("/{id}")
     public String updateStatus(@PathVariable("id") Long id, @RequestBody Task updatedStatus){
-        Task task = taskRepository.getByID(id);
+        Task task = taskRepository.getById(id);
         if (task != null){
             task.setStatus(updatedStatus.getStatus());
 

@@ -14,12 +14,12 @@ public class TaskRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<Task> getAll(){
-        return jdbcTemplate.query("SELECT id, title, description, status, priority, deadline FROM task",
+        return jdbcTemplate.query("SELECT * FROM task",
                 BeanPropertyRowMapper.newInstance(Task.class));
     }
 
-    public Task getByID(Long id){
-        return jdbcTemplate.queryForObject("SELECT id, title, description, status, priority, deadline FROM task WHERE id=?",
+    public Task getById(Long id){
+        return jdbcTemplate.queryForObject("SELECT * FROM task WHERE id=?",
                 BeanPropertyRowMapper.newInstance(Task.class), id);
     }
 
