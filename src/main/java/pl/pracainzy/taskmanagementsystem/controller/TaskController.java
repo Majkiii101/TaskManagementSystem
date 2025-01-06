@@ -61,4 +61,16 @@ public class TaskController {
         return taskRepository.deleteTask(id);
    }
 
+   @PostMapping("/{id}/assign/{userId}")
+    public String assignUserToTask(@PathVariable("id") Long id, @PathVariable("userId") Long userId){
+        Task task = taskRepository.getById(id);
+        if (task != null) {
+            task.setUser_id(userId);
+            taskRepository.updateTask(task);
+            return "User assigned to task successfully";
+        } else {
+            return "Task not found";
+        }
+   }
+
 }

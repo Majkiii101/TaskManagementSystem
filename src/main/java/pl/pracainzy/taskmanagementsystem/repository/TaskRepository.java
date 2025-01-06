@@ -23,18 +23,19 @@ public class TaskRepository {
                 BeanPropertyRowMapper.newInstance(Task.class), id);
     }
 
+
     public String add(List<Task> tasks) {
         tasks.forEach(task ->  jdbcTemplate
-                .update("INSERT INTO task(title, description, status, priority, deadline) VALUES(?, ?, ?, ?, ?)",
-                        task.getTitle(), task.getDeadline(), task.getStatus(), task.getPriority(), task.getDeadline()
+                .update("INSERT INTO task(title, description, status, priority, deadline, user_id) VALUES(?, ?, ?, ?, ?, ?)",
+                        task.getTitle(), task.getDeadline(), task.getStatus(), task.getPriority(), task.getDeadline(), task.getUser_id()
                 ));
 
         return "New task added";
     }
 
     public String updateTask(Task task){
-        jdbcTemplate.update("UPDATE task SET title=?, description=?, status=?, priority=?, deadline=? WHERE id=?",
-               task.getTitle(), task.getDescription(), task.getStatus(), task.getPriority(), task.getDeadline(), task.getId());
+        jdbcTemplate.update("UPDATE task SET title=?, description=?, status=?, priority=?, deadline=?, user_id=? WHERE id=?",
+               task.getTitle(), task.getDescription(), task.getStatus(), task.getPriority(), task.getDeadline(), task.getUser_id(), task.getId());
         return "Task updated";
     }
 
@@ -46,5 +47,10 @@ public class TaskRepository {
 
     public int deleteTask(Long id){
         return jdbcTemplate.update("DELETE FROM task WHERE id = ?", id);
+    }
+
+    public String assignUserToTask(Long taskId, Long userId){
+        jdbcTemplate.update("UPDATE task SET user_id=? WHERE id=?", userId, taskId);
+        return "User assigned to task";
     }
 }
