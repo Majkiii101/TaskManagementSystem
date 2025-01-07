@@ -12,6 +12,8 @@ import pl.pracainzy.taskmanagementsystem.repository.TaskRepository;
 import pl.pracainzy.taskmanagementsystem.repository.UserRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class IndexController {
@@ -28,10 +30,28 @@ public class IndexController {
     @GetMapping("/")
     public String getHome(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("task", new Task()); // Dodanie pustego obiektu Task
+        model.addAttribute("task", new Task());
+
+        // Pobranie list użytkowników i zadań
+        List<User> users = userRepository.getAll();
+        List<Task> tasks = taskRepository.getAll();
+
+        // Dodanie do modelu
+        model.addAttribute("users", users);
+        model.addAttribute("tasks", tasks);
+
+        // Tworzenie mapy użytkowników
+        Map<Long, String> userMap = users.stream()
+                .collect(Collectors.toMap(
+                        User::getId,
+                        user -> user.getFirst_name() + " " + user.getLast_name())
+                );
+
+        // Przekazanie mapy użytkowników do widoku
+        model.addAttribute("userMap", userMap);
+
         return "home";
     }
-
 
     @PostMapping("/index/addUser")
     public String addUser(@ModelAttribute User user){
