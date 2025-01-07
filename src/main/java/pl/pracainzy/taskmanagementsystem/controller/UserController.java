@@ -20,8 +20,9 @@ public class UserController {
     public User getById(@PathVariable("id") Long id) { return userRepository.getById(id); }
 
     @PostMapping("")
-    public String addUser(@RequestBody List<User> users){
-        return userRepository.addUser(users);
+    public String addUser(@RequestBody User user){
+        userRepository.addUser(List.of(user));
+        return "User added successfully";
     }
 
     @PutMapping("/{id}")
@@ -42,6 +43,8 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Long id){
         return userRepository.deleteUser(id);
     }
+
+
 
 }
 

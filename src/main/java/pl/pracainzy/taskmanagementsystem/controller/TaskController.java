@@ -24,11 +24,12 @@ public class TaskController {
     }
 
     @PostMapping("")
-    public String add(@RequestBody List<Task> tasks){
-        return taskRepository.add(tasks);
+    public String addTask(@RequestBody Task task) {
+        taskRepository.addTask(List.of(task));
+        return "Task added successfully";
     }
 
-   @PutMapping("/{id}")
+    @PutMapping("/{id}")
     public String updateTask(@PathVariable("id") Long id, @RequestBody Task updatedTask){
         Task task = taskRepository.getById(id);
         if (task != null){

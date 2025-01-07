@@ -24,13 +24,18 @@ public class TaskRepository {
     }
 
 
-    public String add(List<Task> tasks) {
-        tasks.forEach(task ->  jdbcTemplate
-                .update("INSERT INTO task(title, description, status, priority, deadline, user_id) VALUES(?, ?, ?, ?, ?, ?)",
-                        task.getTitle(), task.getDeadline(), task.getStatus(), task.getPriority(), task.getDeadline(), task.getUser_id()
-                ));
-
-        return "New task added";
+    public void addTask(List<Task> tasks) {
+        for (Task task : tasks) {
+            jdbcTemplate.update(
+                    "INSERT INTO task (title, description, status, priority, deadline, user_id) VALUES (?, ?, ?, ?, ?, ?)",
+                    task.getTitle(),
+                    task.getDescription(),
+                    task.getStatus(),
+                    task.getPriority(),
+                    task.getDeadline(), // Dodaj pole deadline
+                    task.getUser_id()   // user_id może być null
+            );
+        }
     }
 
     public String updateTask(Task task){
