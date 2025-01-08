@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainzy.taskmanagementsystem.model.Task;
 import pl.pracainzy.taskmanagementsystem.model.User;
 import pl.pracainzy.taskmanagementsystem.repository.TaskRepository;
@@ -63,6 +64,22 @@ public class IndexController {
     public String addTask(@ModelAttribute Task task) {
         System.out.println("Dodawanie zadania: " + task);
         taskRepository.addTask(List.of(task));
+        return "redirect:/";
+    }
+
+    @PostMapping("/index/updateStatus")
+    public String updateStatus(@RequestParam("taskId") Long taskId, @RequestParam("status") String status){
+        Task task = taskRepository.getById(taskId);
+        if (task != null){
+            task.setStatus(status);
+            taskRepository.updateStatus(task);
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/index/deleteTask")
+    public String deleteTask(@RequestParam("taskId") Long taskId){
+        taskRepository.deleteTask(taskId);
         return "redirect:/";
     }
 

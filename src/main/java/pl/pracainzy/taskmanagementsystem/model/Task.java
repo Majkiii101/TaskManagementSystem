@@ -13,7 +13,7 @@ public class Task {
     private Long id;
     private String title;
     private String description;
-    private String status;
+    private String status = "To Do";
     private String priority;
     private LocalDate deadline;
     private Long user_id;

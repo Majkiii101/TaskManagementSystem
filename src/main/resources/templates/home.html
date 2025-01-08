@@ -62,19 +62,21 @@
         </div>
 
         <div>
-          <label for="status">Status</label>
-          <input type="text" id="status" th:field="*{status}" placeholder="Task Status" required />
-        </div>
-
-        <div>
           <label for="priority">Priority</label>
-          <input type="text" id="priority" th:field="*{priority}" placeholder="Task Priority" required />
+          <select id="priority" th:field="*{priority}" required>
+            <option value="" disabled selected>Select Priority</option>
+            <option value="Low">Low</option>
+            <option value="Mid">Mid</option>
+            <option value="High">High</option>
+          </select>
         </div>
 
         <div>
           <label for="deadline">Deadline</label>
           <input type="date" id="deadline" th:field="*{deadline}" required />
         </div>
+
+        <input type="hidden" th:field="*{status}" value="To Do" />
 
         <!-- Lista rozwijana dla przypisania pracownika -->
         <div>
@@ -104,6 +106,7 @@
           <th>Priority</th>
           <th>Deadline</th>
           <th>Assigned User</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -111,15 +114,31 @@
           <td th:text="${task.id}"></td>
           <td th:text="${task.title}"></td>
           <td th:text="${task.description}"></td>
-          <td th:text="${task.status}"></td>
+          <!-- Formularz do aktualizacji statusu -->
+          <td>
+            <form th:action="@{/index/updateStatus}" method="post">
+              <input type="hidden" name="taskId" th:value="${task.id}" />
+              <select name="status" required>
+                <option value="To Do" th:selected="${task.status == 'To Do'}">To Do</option>
+                <option value="In Progress" th:selected="${task.status == 'In Progress'}">In Progress</option>
+                <option value="Done" th:selected="${task.status == 'Done'}">Done</option>
+              </select>
+              <button type="submit">Update</button>
+            </form>
+          </td>
           <td th:text="${task.priority}"></td>
           <td th:text="${task.deadline}"></td>
-          <td th:if="${task.user_id != null}" th:text="${userMap[task.user_id]}"></td>
-          <td th:if="${task.user_id == null}">Brak pracownika</td>
-
+          <td th:text="${userMap[task.user_id]}">Brak pracownika</td>
+          <td>
+            <form th:action="@{/index/deleteTask}" method="post" style="display: inline;">
+              <input type="hidden" name="taskId" th:value="${task.id}" />
+              <button type="submit">Delete</button>
+            </form>
+          </td>
         </tr>
       </tbody>
     </table>
+
   </div>
 
   <script>
