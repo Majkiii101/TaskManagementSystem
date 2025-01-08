@@ -2,15 +2,60 @@
 #userFormContainer,
 #taskFormContainer {
     display: none;
-    background: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    max-width: 400px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Przyciemnienie tła */
+    z-index: 1000;
+    /* Zawsze nad wszystkim */
+    justify-content: center;
+    align-items: center;
 }
 
+header {
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    color: #009879;
+}
+
+header #buttons {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0px;
+
+}
+
+#buttons #addUser {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#buttons i {
+    font-size: 24px;
+}
+
+#buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+
 .button {
-    background-color: #007bff;
+    background-color: #009879;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -20,6 +65,47 @@
 
 .button:hover {
     background-color: #0056b3;
+}
+
+.overlay {
+    display: none;
+    /* Ukryj domyślnie */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Przyciemnione tło */
+    z-index: 1000;
+    /* Wyższy priorytet */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styl dla treści popup */
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Styl dla przycisku zamykania */
+.close-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.close-btn:hover {
+    background-color: #a71d2a;
 }
 
 table {
@@ -44,4 +130,152 @@ table td {
 
 table tbody tr:nth-child(even) {
     background-color: #f3f3f3;
+}
+
+.popup-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popup-content ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.popup-content ul li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+.popup-content label {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.popup-content input {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.popup-content .email input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+
+.popup-content input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.popup-content form div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.popup-content form div label {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.popup-content form div input,
+.popup-content form div select,
+.popup-content form div textarea {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    /* Upewnij się, że marginesy są uwzględnione */
+}
+
+
+table select[name="status"] {
+    background-color: transparent;
+    border: 1px solid #dddddd;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+table button[type="submit"] {
+    background-color: transparent;
+    border: 1px solid #dddddd;
+    padding: 5px 10px;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+table button[type="submit"]:hover {
+    background-color: #f0f0f0;
+}
+
+table td form button[type="submit"] .deleteButton {
+    background-color: transparent;
+    border: none;
+    /* color: #dc3545; */
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+
+}
+
+table td form button[type="submit"] i {
+    font-size: 24px;
+    color: #a71d2a;
+
+}
+
+
+
+/* Styl dla kontenera przycisków */
+#submit-cancel {
+    display: flex;
+    justify-content: center;
+    /* Wyrównanie przycisków na środku */
+    gap: 10px;
+    /* Odstęp między przyciskami */
+    margin-top: 20px;
+    /* Odstęp od góry */
+}
+
+/* Równe wymiary przycisków */
+#submit-cancel .button,
+#submit-cancel .close-btn {
+    flex: 1;
+    padding: 10px 0;
+
+    text-align: center;
+
+    font-size: 16px;
+
+}
+
+#submit-cancel .close-btn {
+    margin: 10px;
 }

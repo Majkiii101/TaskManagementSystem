@@ -1,13 +1,11 @@
 // Funkcja pokazująca lub ukrywająca formularz
-function toggleForm(formId) {
-    const formContainer = document.getElementById(formId);
-    if (formContainer.style.display === "none" || formContainer.style.display === "") {
-        formContainer.style.display = "block";
+function togglePopup(id) {
+    const popup = document.getElementById(id);
+    if (popup.style.display === "flex") {
+        popup.style.display = "none"; // Ukryj popup
     } else {
-        formContainer.style.display = "none";
+        popup.style.display = "flex"; // Pokaż popup
     }
 }
-
-
 
 
